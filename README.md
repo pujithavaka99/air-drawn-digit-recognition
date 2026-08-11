@@ -1,5 +1,3 @@
-
-````markdown
 # Air-Drawn Digit Recognition
 
 A real-time computer vision application that allows users to draw digits in the air using hand gestures and recognizes the drawn digit using a machine learning model.
