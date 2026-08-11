@@ -1,56 +1,30 @@
-# ✋ Air-Drawn Digit Recognition
+# Air-Drawn Digit Recognition
 
-A real-time computer vision application that converts webcam-tracked hand movements into digit drawings and recognizes digits **0–9** using a trained K-Nearest Neighbors (KNN) classifier. The project combines **MediaPipe** for hand tracking with **OpenCV** for live video processing and drawing.
+A real-time computer vision application that allows users to draw digits in the air using hand gestures and recognizes the drawn digit using a machine learning model.
 
-## 🚀 Features
+The project combines MediaPipe for real-time hand tracking, OpenCV for video processing and virtual drawing, and Scikit-learn for digit classification.
+
+## Project Overview
+
+The system captures hand movements through a webcam and tracks the user's index finger using MediaPipe. The finger movement is converted into a virtual drawing on the screen.
+
+Once the digit is completed, the drawing is processed into a 28 × 28 grayscale image and passed to a trained K-Nearest Neighbors (KNN) classifier for prediction.
+
+The system recognizes digits from 0 to 9.
+
+## Features
 
 - Real-time webcam-based digit recognition
-- MediaPipe hand tracking
-- Air drawing using hand gestures
-- 28×28 image preprocessing
-- 784-feature KNN input
+- Hand tracking using MediaPipe
+- Air drawing using hand movements
+- Virtual drawing canvas using OpenCV
+- Recognition of digits 0–9
+- Image preprocessing and resizing
+- KNN-based digit classification
 - Prediction confidence display
-- Recognition of digits **0–9**
+- Real-time prediction pipeline
 
-## 🧠 Machine Learning Model
-
-**Algorithm:** K-Nearest Neighbors (KNN)
-
-```text
-K = 3
-Weights = distance
-Classes = 0–9
-Input features = 784
-Accuracy = 96.61%
-```
-
-The model was trained and tuned on **40,430 grayscale digit images**. Hyperparameter tuning with `n_neighbors=3` and `weights='distance'` improved accuracy from **96.49% to 96.61%**. fileciteturn31file4L217-L221
-
-## 🔄 Workflow
-
-```text
-Webcam
-   ↓
-MediaPipe Hand Tracking
-   ↓
-Hand Movement Detection
-   ↓
-Air Drawing
-   ↓
-Virtual Canvas
-   ↓
-Image Preprocessing
-   ↓
-28 × 28 Grayscale Image
-   ↓
-Flatten to 784 Features
-   ↓
-KNN Classifier
-   ↓
-Digit Prediction
-```
-
-## 🛠️ Technologies
+## Technologies Used
 
 - Python
 - OpenCV
@@ -59,77 +33,38 @@ Digit Prediction
 - Scikit-learn
 - Joblib
 - K-Nearest Neighbors (KNN)
-- Decision Tree
 
-The project uses OpenCV and MediaPipe for the real-time computer vision pipeline and compares KNN with Decision Tree classification. fileciteturn31file2L125-L129
-
-## 📂 Project Structure
+## System Workflow
 
 ```text
-air-drawn-digit-recognition/
-│
-├── app.py
-├── trained_model.pkl
-├── requirements.txt
-└── README.md
-```
-
-## ⚙️ Installation
-
-```bash
-python -m venv venv
-venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-## ▶️ Run Locally
-
-```bash
-python app.py
-```
-
-Allow webcam access when prompted.
-
-## 🖼️ Image Preprocessing
-
-The air-drawn digit is converted into a grayscale image, resized to **28×28 pixels**, and flattened into **784 features** before prediction. fileciteturn31file15L545-L548
-
-```text
-Air-drawn digit
-      ↓
-Grayscale
-      ↓
-Crop / prepare image
-      ↓
-Resize to 28×28
-      ↓
-Normalize
-      ↓
-Flatten to 784
-      ↓
-KNN prediction
-```
-
-## 📊 Model Performance
-
-| Model | Result |
-|---|---:|
-| KNN - Initial | 96.49% |
-| KNN - Tuned | **96.61%** |
-
-The tuned KNN model was integrated into the live recognition pipeline. fileciteturn31file4L217-L221
-
-## 🔮 Future Improvements
-
-- Improve robustness for visually similar digits
-- Explore CNN-based digit recognition
-- Add prediction history
-- Improve gesture controls
-- Extend the system to handwritten alphabet recognition
-- Build a browser-based deployment
-
-## 👩‍💻 Author
-
-**Pujitha Vaka**
-
-GitHub: https://github.com/pujithavaka99
+Webcam
+   |
+   v
+Hand Detection using MediaPipe
+   |
+   v
+Index Finger Tracking
+   |
+   v
+Air Drawing
+   |
+   v
+Virtual Canvas
+   |
+   v
+Image Preprocessing
+   |
+   v
+Grayscale Image
+   |
+   v
+Resize to 28 × 28
+   |
+   v
+Flatten to 784 Features
+   |
+   v
+KNN Classifier
+   |
+   v
+Digit Prediction
