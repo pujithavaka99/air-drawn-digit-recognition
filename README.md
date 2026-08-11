@@ -1,21 +1,16 @@
 # ✋ Air-Drawn Digit Recognition
 
-A real-time digit recognition system that allows users to draw digits **0–9 in the air using hand gestures**. The system uses **MediaPipe Hands** for hand tracking, **OpenCV** for the virtual drawing canvas and image processing, and a trained **K-Nearest Neighbors (KNN)** model for digit classification.
+A real-time computer vision application that converts webcam-tracked hand movements into digit drawings and recognizes digits **0–9** using a trained K-Nearest Neighbors (KNN) classifier. The project combines **MediaPipe** for hand tracking with **OpenCV** for live video processing and drawing.
 
 ## 🚀 Features
 
 - Real-time webcam-based digit recognition
 - MediaPipe hand tracking
 - Air drawing using hand gestures
-- Pinch gesture to start drawing
-- Release pinch to predict
-- Open palm gesture to clear the canvas
-- Two-finger gesture to exit
-- Recognition of digits **0–9**
 - 28×28 image preprocessing
 - 784-feature KNN input
 - Prediction confidence display
-- No keyboard controls
+- Recognition of digits **0–9**
 
 ## 🧠 Machine Learning Model
 
@@ -26,21 +21,19 @@ K = 3
 Weights = distance
 Classes = 0–9
 Input features = 784
-Test accuracy = 96.52%
+Accuracy = 96.61%
 ```
 
-The trained model is stored as `trained_model.pkl` and loaded during application startup.
+The model was trained and tuned on **40,430 grayscale digit images**. Hyperparameter tuning with `n_neighbors=3` and `weights='distance'` improved accuracy from **96.49% to 96.61%**. fileciteturn31file4L217-L221
 
 ## 🔄 Workflow
 
 ```text
 Webcam
    ↓
-MediaPipe Hand Detection
+MediaPipe Hand Tracking
    ↓
-Index Finger Tracking
-   ↓
-Pinch Gesture
+Hand Movement Detection
    ↓
 Air Drawing
    ↓
@@ -50,13 +43,11 @@ Image Preprocessing
    ↓
 28 × 28 Grayscale Image
    ↓
-784 Features
+Flatten to 784 Features
    ↓
-KNN Model
+KNN Classifier
    ↓
 Digit Prediction
-   ↓
-Confidence Score
 ```
 
 ## 🛠️ Technologies
@@ -67,8 +58,10 @@ Confidence Score
 - NumPy
 - Scikit-learn
 - Joblib
-- KNN
-- VS Code / Jupyter Notebook
+- K-Nearest Neighbors (KNN)
+- Decision Tree
+
+The project uses OpenCV and MediaPipe for the real-time computer vision pipeline and compares KNN with Decision Tree classification. fileciteturn31file2L125-L129
 
 ## 📂 Project Structure
 
@@ -80,8 +73,6 @@ air-drawn-digit-recognition/
 ├── requirements.txt
 └── README.md
 ```
-
-The original training dataset is not required for inference when the trained model is already available.
 
 ## ⚙️ Installation
 
@@ -99,27 +90,16 @@ python app.py
 
 Allow webcam access when prompted.
 
-## 🎮 Gesture Controls
+## 🖼️ Image Preprocessing
 
-| Gesture | Action |
-|---|---|
-| 🤏 Thumb + Index Pinch | Start drawing |
-| Release Pinch | Stop drawing and predict |
-| ✋ Open Palm | Clear canvas |
-| ✌️ Two Fingers | Exit |
-
-## 🖼️ Preprocessing
-
-The drawn digit is transformed into a 28×28 image, normalized to the 0–1 range, and flattened into 784 features before being passed to the KNN classifier.
+The air-drawn digit is converted into a grayscale image, resized to **28×28 pixels**, and flattened into **784 features** before prediction. fileciteturn31file15L545-L548
 
 ```text
 Air-drawn digit
       ↓
 Grayscale
       ↓
-Crop digit
-      ↓
-Square image
+Crop / prepare image
       ↓
 Resize to 28×28
       ↓
@@ -132,19 +112,17 @@ KNN prediction
 
 ## 📊 Model Performance
 
-```text
-Model        : KNeighborsClassifier
-K            : 3
-Weights      : distance
-Classes      : 0–9
-Features     : 784
-Accuracy     : 96.52%
-```
+| Model | Result |
+|---|---:|
+| KNN - Initial | 96.49% |
+| KNN - Tuned | **96.61%** |
+
+The tuned KNN model was integrated into the live recognition pipeline. fileciteturn31file4L217-L221
 
 ## 🔮 Future Improvements
 
 - Improve robustness for visually similar digits
-- Add CNN-based digit recognition
+- Explore CNN-based digit recognition
 - Add prediction history
 - Improve gesture controls
 - Extend the system to handwritten alphabet recognition
